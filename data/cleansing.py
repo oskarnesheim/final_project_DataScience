@@ -50,7 +50,7 @@ def count_genres(data):
 def get_most_popular_genres(genres_count, count):
     """
 
-    Find the ten genres with the most movies and print the results.
+    Find the X genres with the most movies and print the results.
 
     Parameters:
     - genres_count (dict): A dictionary containing the count of movies in each genre.
@@ -93,6 +93,40 @@ def filter_movies_by_genre(filename, genres):
             filtered_movies.append(movie)
 
     return filtered_movies
+
+
+def remove_duplicates(data):
+    """
+    Remove duplicates from a list of dictionaries and return the deduplicated data.
+
+    Parameters:
+    - data (list): A list of dictionaries containing the data.
+
+    Returns:
+    - deduplicated_data (list): A list of dictionaries containing the deduplicated data.
+
+    """
+    count = 0
+    no_desc = 0
+
+    unique_descriptions = set()
+    res = []
+
+    for item in data:
+        desc = item['overview']
+
+        if desc not in unique_descriptions:
+            res.append(item)
+            unique_descriptions.add(desc)
+        elif desc != "No overview found.":
+            count += 1
+        else:
+            no_desc += 1
+
+    print(f"\nNumber of duplicates removed: {count}")
+    print(f"Number of 'No overview found' removed: {no_desc}\n")
+
+    return res
 
 
 def balance_genres(movies, amount, genres):
@@ -147,6 +181,15 @@ def stratify_genres(movies, total_movies, genres_count):
     return stratified_movies
 
 
+def calculate_overview_length(data):
+    count = []
+
+    for movie in data:
+        count.append(len(movie['overview'].split(" ")))
+
+    print(f"\nAverage amount of words in overview: {sum(count)/len(count)}")
+
+
 def write_data(data, filename):
     """
 
@@ -181,6 +224,9 @@ def main():
     # Keep only the movies that belong to one of the most popular genres
     filtered_movies = filter_movies_by_genre(DATA_FILE, most_popular_genres)
 
+    # Remove duplicates
+    filtered_movies = remove_duplicates(filtered_movies)
+
     # Balance the number of movies per genre
     balanced_movies = balance_genres(
         filtered_movies, MOVIES_PER_GENRE, most_popular_genres)
@@ -206,6 +252,8 @@ def main():
     write_data(stratified_movies, 'movies_stratified.json')
     write_data(balanced_movies, 'movies_balanced.json')
     write_data(most_popular_genres, 'popular_genres.json')
+
+    calculate_overview_length(filtered_movies)
 
 
 main()
