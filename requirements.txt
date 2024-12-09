@@ -1,12 +1,10 @@
-torch
 pandas
-sklearn
+scikit-learn
 seaborn
 matplotlib
 tqdm
-re
 nltk
 python-dotenv
 requests
 transformers
-nltk
+torch

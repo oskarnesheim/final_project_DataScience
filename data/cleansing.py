@@ -205,6 +205,7 @@ def main():
 
     write_data(stratified_movies, 'movies_stratified.json')
     write_data(balanced_movies, 'movies_balanced.json')
+    write_data(most_popular_genres, 'popular_genres.json')
 
 
 main()
