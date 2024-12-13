@@ -1,8 +1,9 @@
 import re
+import time
 import nltk
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
-from nltk.stem import WordNetLemmatizer, PorterStemmer
+from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 import pandas as pd
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV, train_test_split
@@ -17,9 +18,9 @@ DATA_LOCATION = './data'
 DATA_FILE = 'movies_balanced.json'
 GENRES_FILE = 'popular_genres.json'
 
+start_time = time.time()
 
 # Downloading necessary resources
-nltk.download('wordnet')
 nltk.download('stopwords')
 
 # Load dataset
@@ -57,7 +58,7 @@ data['overview'] = data['overview'].apply(preprocess_text)
 
 # Splitting the data
 X_train, X_test, y_train, y_test = train_test_split(
-    data['overview'], data['genre'], test_size=0.3, random_state=42)
+    data['overview'], data['genre'], test_size=0.3)
 
 # Vectorization
 vectorizer = TfidfVectorizer(ngram_range=(
@@ -67,17 +68,14 @@ X_test_vectors = vectorizer.transform(X_test)
 
 # Model (Kanskje utdype denne?)
 model = MultinomialNB()
-param_grid = {'alpha': [0.5, 0.55, 0.6, 0.65,
-                        0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]}
-# grid_search = RandomizedSearchCV(
-#     model, param_distributions=param_grid, n_iter=12, cv=5, random_state=42)
+param_grid = {'alpha': [0.001, 0.01, 0.1, 1, 10, 100, 1000]}
 grid_search = GridSearchCV(
-    estimator=model,  # Modellen som skal tunes
-    param_grid={'alpha': param_grid['alpha']},  # Parameterområde
-    cv=10,  # Antall fold i kryssvalidering
-    scoring='f1_weighted',  # Evalueringsmetode
-    n_jobs=-1,  # Parallell prosessering for raskere søk
-    verbose=3  # For detaljerte logger under søket
+    estimator=model,  # Model to tune
+    param_grid={'alpha': param_grid['alpha']},  # Hyperparameters to tune
+    cv=10,  # Folds for cross-validation
+    scoring='f1_weighted',  # Scoring metric
+    n_jobs=-1,  # Use all available cores
+    verbose=3  # For printing out progress
 )
 
 grid_search.fit(X_train_vectors, y_train)
@@ -91,6 +89,10 @@ y_pred = best_model.predict(X_test_vectors)
 print("Best Model:", best_model)
 print("Accuracy:", best_model.score(X_test_vectors, y_test))
 print(classification_report(y_test, y_pred))
+
+end_time = time.time()
+
+print(f"Time taken: {end_time - start_time:.2f} seconds")
 
 # Creating the confusion Matrix
 cm = confusion_matrix(y_test, y_pred, labels=best_model.classes_)
