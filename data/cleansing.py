@@ -129,6 +129,23 @@ def remove_duplicates(data):
     return res
 
 
+def filer_movies_by_length(data, min_length):
+    """
+    Filter the movies by the length of the overview and return the filtered movies.
+
+    Parameters:
+    - data (list): A list of dictionaries containing the data.
+    - min_length (int): The minimum length of the overview to keep.
+
+    Returns:
+    - filtered_movies (list): A list of dictionaries containing the filtered data.
+
+    """
+    filtered_movies = [movie for movie in data if len(
+        movie['overview'].split(" ")) >= min_length]
+    return filtered_movies
+
+
 def balance_genres(movies, amount, genres):
     """
 
@@ -252,6 +269,21 @@ def main():
     write_data(stratified_movies, 'movies_stratified.json')
     write_data(balanced_movies, 'movies_balanced.json')
     write_data(most_popular_genres, 'popular_genres.json')
+
+    long_descriptions = filer_movies_by_length(filtered_movies, 15)
+    print(
+        f"\nNumber of movies with overview length >= 100: {len(long_descriptions)}")
+    count_genres(long_descriptions)
+
+    balanced_long_descriptions = balance_genres(
+        long_descriptions, 1000, most_popular_genres)
+
+    print(
+        f"\nNumber of movies with overview length >= 15 words and balanced: {len(balanced_long_descriptions)}")
+
+    count_genres(balanced_long_descriptions)
+
+    write_data(balanced_long_descriptions, 'movies_balanced_long.json')
 
     calculate_overview_length(filtered_movies)
 
