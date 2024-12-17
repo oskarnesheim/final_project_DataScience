@@ -1,0 +1,33 @@
+Training Epoch 1: 100%|██████████| 500/500 [11:23<00:00,  1.37s/it]
+Validation Epoch 1: 100%|██████████| 63/63 [00:20<00:00,  3.02it/s]
+Epoch 1 Metrics:
+Train Loss: 1.6458 | Val Loss: 1.4510
+F1 Score: 0.4670 | Precision: 0.4807 | Recall: 0.4770 | Accuracy: 0.4770
+Current Learning Rate: 0.000033
+
+Training Epoch 2: 100%|██████████| 500/500 [11:37<00:00,  1.40s/it]
+Validation Epoch 2: 100%|██████████| 63/63 [00:20<00:00,  3.02it/s]
+Epoch 2 Metrics:
+Train Loss: 1.1043 | Val Loss: 1.4426
+F1 Score: 0.4750 | Precision: 0.4850 | Recall: 0.4780 | Accuracy: 0.4780
+Current Learning Rate: 0.000017
+
+Training Epoch 3: 100%|██████████| 500/500 [12:10<00:00,  1.46s/it]
+Validation Epoch 3: 100%|██████████| 63/63 [00:21<00:00,  2.91it/s]
+Epoch 3 Metrics:
+Train Loss: 0.6607 | Val Loss: 1.5381
+F1 Score: 0.5000 | Precision: 0.5068 | Recall: 0.5000 | Accuracy: 0.5000
+Current Learning Rate: 0.000000
+
+Training Epoch 4: 100%|██████████| 500/500 [11:31<00:00,  1.38s/it]
+Validation Epoch 4: 100%|██████████| 63/63 [00:20<00:00,  3.04it/s]
+Epoch 4 Metrics:
+Train Loss: 0.4980 | Val Loss: 1.5381
+F1 Score: 0.5000 | Precision: 0.5068 | Recall: 0.5000 | Accuracy: 0.5000
+Current Learning Rate: 0.000000
+
+Training Epoch 5: 100%|██████████| 500/500 [11:26<00:00,  1.37s/it]
+Validation Epoch 5: 100%|██████████| 63/63 [00:21<00:00,  2.89it/s]Epoch 5 Metrics:
+Train Loss: 0.4992 | Val Loss: 1.5381
+F1 Score: 0.5000 | Precision: 0.5068 | Recall: 0.5000 | Accuracy: 0.5000
+Current Learning Rate: 0.000000
