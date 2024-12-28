@@ -7,5 +7,4 @@ nltk
 python-dotenv
 requests
 transformers
-torch
 ipykernel
