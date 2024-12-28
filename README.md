@@ -21,6 +21,22 @@ Dataset is available at: [https://www.kaggle.com/datasets/rounakbanik/the-movies
 
 The project is developed in Python. The required packages are listed in the `requirements.txt` file. To install the required packages, run the following command:
 
+### Optional: Create a virtual environment
+For creating a virtual environment, run:
+
+```bash
+python -m venv venv
+```
+
+For activating the virtual environment, run:
+
+```bash
+source venv/bin/activate
+```
+
+### Install required packages
+
+
 ```bash
 pip install -r requirements.txt
 ```
